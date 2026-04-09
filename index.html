@@ -3,103 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1999nosubete / PRIVATE</title>
+    <title>1999nosubete / ARCHIVE</title>
     <style>
         :root {
-            --bg-color: #050505; 
-            --main-text: #d1d1d1;
-            --sub-text: #444;
-            --accent: #fff;
-        }
-        
-        body {
-            background-color: var(--bg-color);
-            color: var(--main-text);
-            font-family: 'Helvetica', 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            letter-spacing: -0.03em;
+            --bg: #000;
+            --silver: #e0e0e0;
+            --dim: #444;
         }
 
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            color: var(--silver);
+            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 核心：动态噪点背景，模拟 kiiikiii 的胶片颗粒感 */
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url(https://media.giphy.com/media/oEI9uWUic9Z5e/giphy.gif); /* 极轻微的噪点动画 */
+            opacity: 0.03; pointer-events: none; z-index: 999;
+        }
+
+        /* 顶部导航：更有设计感的布局 */
         header {
-            padding: 50px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            border-bottom: 1px solid #1a1a1a;
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 30px; display: flex; justify-content: space-between;
+            mix-blend-mode: difference; /* 文字颜色随背景改变，非常高级 */
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: lowercase;
-            letter-spacing: -1.5px;
+        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: -1px; }
+
+        /* 全屏首屏：那种冲击力 */
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle, #111 0%, #000 100%);
         }
 
-        .status {
-            font-size: 10px;
-            font-family: monospace;
-            color: var(--sub-text);
+        .hero-title {
+            font-size: 15vw; font-weight: 900; letter-spacing: -0.05em;
+            color: transparent; -webkit-text-stroke: 1px #333; /* 镂空字体 */
         }
 
-        .archive-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 15px;
-            padding: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
+        /* 核心布局：碎片化错落排版 */
+        .content {
+            padding: 10vw; position: relative;
         }
 
-        .item {
-            position: relative;
-            margin-bottom: 50px;
+        .img-box {
+            position: relative; margin-bottom: 20vh;
         }
 
-        .item-lg { grid-column: span 6; }
-        .item-sm { grid-column: span 4; padding-top: 80px; }
-        .item-mid { grid-column: 3 / span 5; }
-
-        .item img {
-            width: 100%;
-            height: auto;
-            border: 1px solid #111;
-            filter: grayscale(10%) contrast(1.1) brightness(0.9);
-            transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        /* 模拟 kiiikiii 风格的重叠文字 */
+        .img-box::after {
+            content: "1999_ALL_DATA";
+            position: absolute; bottom: -20px; right: -20px;
+            font-size: 4vw; font-weight: 900; color: rgba(255,255,255,0.05);
+            z-index: -1;
         }
 
-        .item img:hover {
-            filter: grayscale(0%) contrast(1.2) brightness(1.1);
-            border-color: #333;
-            transform: translateY(-5px);
+        .img-box img {
+            width: 70%; height: auto; display: block;
+            filter: saturate(0) contrast(1.2); /* 强烈的黑白高对比 */
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .info {
-            margin-top: 12px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            text-transform: uppercase;
-            color: var(--sub-text);
-            font-family: monospace;
+        .img-box:nth-child(even) img { margin-left: auto; width: 50%; }
+
+        .img-box:hover img {
+            filter: saturate(1); transform: scale(1.02);
+        }
+
+        .caption {
+            font-size: 10px; font-family: monospace; color: var(--dim);
+            margin-top: 15px; letter-spacing: 2px;
         }
 
         footer {
-            margin-top: 100px;
-            padding: 40px;
-            border-top: 1px solid #1a1a1a;
-            text-align: center;
-        }
-
-        .copyright {
-            font-size: 10px;
-            color: #222;
-            letter-spacing: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .archive-grid { display: flex; flex-direction: column; padding: 20px; }
-            .item-sm { padding-top: 0; }
+            padding: 50px; text-align: center; font-size: 10px; color: var(--dim);
         }
     </style>
 </head>
@@ -107,38 +90,27 @@
 
 <header>
     <div class="logo">1999nosubete</div>
-    <div class="status">LIVE_ARCHIVE_SYSTEM</div>
+    <div style="font-size: 10px;">SCROLL / 探索</div>
 </header>
 
-<div class="archive-grid">
-    <div class="item item-lg">
-        <img src="https://via.placeholder.com/1200x1500/111/eee?text=001" alt="archive">
-        <div class="info">
-            <span>INDEX: 001</span>
-            <span>DATA: 2026.04.09</span>
-        </div>
+<div class="hero">
+    <div class="hero-title">NOSUBETE</div>
+</div>
+
+<div class="content">
+    <div class="img-box">
+        <img src="001.jpg" alt="archive">
+        <div class="caption">#INDEX_001 / LIGHT_AND_SHADOW</div>
     </div>
 
-    <div class="item item-sm">
-        <img src="https://via.placeholder.com/800x1000/111/eee?text=002" alt="archive">
-        <div class="info">
-            <span>INDEX: 002</span>
-        </div>
-    </div>
-
-    <div class="item item-mid">
-        <div style="border-left: 1px solid #333; padding-left: 20px;">
-            <p style="font-size: 13px; line-height: 2; color: #888;">
-                すべてを記録する。<br>
-                一切皆被记录。
-            </p>
-            <div class="info"><span>USER_ID: ANONYMOUS</span></div>
-        </div>
+    <div class="img-box">
+        <img src="002.jpg" alt="archive">
+        <div class="caption">#INDEX_002 / NOISE_ATMOSPHERE</div>
     </div>
 </div>
 
 <footer>
-    <div class="copyright">© 1999-2026 NOSUBETE. PRIVATE PROJECT.</div>
+    © 1999 ALL RIGHTS RESERVED.
 </footer>
 
 </body>
