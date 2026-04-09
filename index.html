@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1999nosubete / PRIVATE</title>
+    <style>
+        :root {
+            --bg-color: #050505; 
+            --main-text: #d1d1d1;
+            --sub-text: #444;
+            --accent: #fff;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--main-text);
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            letter-spacing: -0.03em;
+        }
+
+        header {
+            padding: 50px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: lowercase;
+            letter-spacing: -1.5px;
+        }
+
+        .status {
+            font-size: 10px;
+            font-family: monospace;
+            color: var(--sub-text);
+        }
+
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 15px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .item {
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .item-lg { grid-column: span 6; }
+        .item-sm { grid-column: span 4; padding-top: 80px; }
+        .item-mid { grid-column: 3 / span 5; }
+
+        .item img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #111;
+            filter: grayscale(10%) contrast(1.1) brightness(0.9);
+            transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .item img:hover {
+            filter: grayscale(0%) contrast(1.2) brightness(1.1);
+            border-color: #333;
+            transform: translateY(-5px);
+        }
+
+        .info {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--sub-text);
+            font-family: monospace;
+        }
+
+        footer {
+            margin-top: 100px;
+            padding: 40px;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+        }
+
+        .copyright {
+            font-size: 10px;
+            color: #222;
+            letter-spacing: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .archive-grid { display: flex; flex-direction: column; padding: 20px; }
+            .item-sm { padding-top: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">1999nosubete</div>
+    <div class="status">LIVE_ARCHIVE_SYSTEM</div>
+</header>
+
+<div class="archive-grid">
+    <div class="item item-lg">
+        <img src="https://via.placeholder.com/1200x1500/111/eee?text=001" alt="archive">
+        <div class="info">
+            <span>INDEX: 001</span>
+            <span>DATA: 2026.04.09</span>
+        </div>
+    </div>
+
+    <div class="item item-sm">
+        <img src="https://via.placeholder.com/800x1000/111/eee?text=002" alt="archive">
+        <div class="info">
+            <span>INDEX: 002</span>
+        </div>
+    </div>
+
+    <div class="item item-mid">
+        <div style="border-left: 1px solid #333; padding-left: 20px;">
+            <p style="font-size: 13px; line-height: 2; color: #888;">
+                すべてを記録する。<br>
+                一切皆被记录。
+            </p>
+            <div class="info"><span>USER_ID: ANONYMOUS</span></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="copyright">© 1999-2026 NOSUBETE. PRIVATE PROJECT.</div>
+</footer>
+
+</body>
+</html>
