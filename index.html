@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1999nosubete / ARCHIVE_ONLY</title>
+    <title>1999nosubete / ARCHIVE_DECO</title>
     <style>
         :root {
-            --bg: #f2f2f2;
+            --bg: #f8f8f8;
             --klein-blue: #0047AB; 
-            --silver-metal: #ccc;
-            --main-text: #222;
-            --accent-green: #00ff00;
+            --silver: #d1d1d1;
+            --main-text: #1a1a1a;
+            --cyber-green: #00ff00;
         }
 
         body, html {
@@ -19,131 +19,146 @@
             color: var(--main-text);
             font-family: 'Helvetica', 'Arial', sans-serif;
             overflow-x: hidden;
-            letter-spacing: -0.01em;
         }
 
-        /* 千禧扫描线纹理 */
+        /* 装饰：扫描网格 */
         body::before {
             content: "";
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0,0,0,0.02) 0px,
-                rgba(0,0,0,0.02) 1px,
-                transparent 1px,
-                transparent 2px
-            );
+            background: 
+                linear-gradient(rgba(0,0,0,0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.01) 1px, transparent 1px);
+            background-size: 20px 20px;
             pointer-events: none; z-index: 1000;
         }
 
-        /* 顶部导航：纯匿名 ID 设计 */
-        header {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 1000px; z-index: 100;
-            padding: 12px 25px; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--silver-metal);
+        /* 动态背景装饰：流动的线条 */
+        .bg-line {
+            position: fixed; width: 1px; height: 100vh;
+            background: linear-gradient(to bottom, transparent, var(--klein-blue), transparent);
+            opacity: 0.1; z-index: -1; animation: slide 8s infinite linear;
         }
 
-        .logo { font-size: 1.1rem; font-weight: 900; color: var(--klein-blue); letter-spacing: -1px; text-transform: lowercase; }
+        @keyframes slide {
+            0% { transform: translateX(-100vw); }
+            100% { transform: translateX(200vw); }
+        }
 
-        /* 首屏：极简机能 */
+        /* 顶部导航：增加按钮感 */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1001;
+            padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--silver);
+            box-sizing: border-box;
+        }
+
+        .logo { font-size: 1.2rem; font-weight: 900; color: var(--klein-blue); letter-spacing: -1px; }
+
+        /* Y2K 风格的小挂饰 */
+        .ui-tag {
+            font-size: 9px; font-family: monospace; border: 1px solid var(--klein-blue);
+            padding: 2px 6px; color: var(--klein-blue); border-radius: 10px;
+        }
+
+        /* 核心内容区 */
         .hero {
-            height: 100vh; display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle, #fff 0%, #eee 100%);
+            height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
             position: relative;
         }
 
         .hero-title {
-            font-size: 12vw; font-weight: 900; letter-spacing: -0.08em;
+            font-size: 10vw; font-weight: 900; letter-spacing: -0.05em;
             color: transparent; -webkit-text-stroke: 1px var(--klein-blue);
-            transform: rotate(-2deg);
+            position: relative;
         }
 
-        .decoration {
-            position: absolute; font-family: monospace; font-size: 10px; color: rgba(0,0,0,0.1); pointer-events: none;
+        /* 模拟浮动弹窗装饰 */
+        .window-deco {
+            position: absolute; border: 1px solid var(--silver); background: #fff;
+            padding: 5px 15px; font-size: 10px; font-family: monospace;
+            box-shadow: 4px 4px 0 var(--silver);
         }
 
-        /* 内容布局 */
+        /* 内容流布局 */
         .content {
-            padding: 15vw; position: relative; max-width: 1200px; margin: 0 auto;
+            padding: 5vw; display: flex; flex-direction: column; gap: 15vh;
         }
 
-        .img-box {
-            position: relative; margin-bottom: 25vh;
-            border-left: 1px solid var(--klein-blue); padding-left: 20px;
+        .img-wrap {
+            position: relative; max-width: 800px; margin: 0 auto;
         }
 
-        .img-box img {
-            width: 85%; height: auto; display: block;
-            border: 1px solid #ddd;
-            filter: contrast(1.05) brightness(1.05);
-            transition: 0.5s ease-out;
+        /* 图片装饰：像文件夹一样 */
+        .img-wrap::before {
+            content: "[+ PHOTO_LOG]";
+            position: absolute; top: -25px; left: 0;
+            font-size: 10px; color: var(--klein-blue); font-family: monospace;
         }
 
-        .img-box:hover img {
-            transform: translateX(10px);
-            box-shadow: 12px 12px 0 rgba(0, 71, 171, 0.1);
+        .img-wrap img {
+            width: 100%; height: auto; border: 1px solid #000;
+            filter: contrast(1.1); transition: 0.4s;
         }
 
-        .caption {
-            font-size: 10px; font-family: monospace; color: var(--klein-blue);
-            margin-top: 15px; letter-spacing: 1px;
-            display: flex; gap: 8px; align-items: center;
-        }
-        
-        .caption-icon { width: 6px; height: 6px; border: 1px solid var(--klein-blue); }
-
-        footer {
-            margin-top: 50px; padding: 40px; text-align: center;
-            border-top: 1px solid rgba(0,0,0,0.05);
+        .img-wrap:hover img {
+            box-shadow: 15px 15px 0 var(--klein-blue);
+            transform: translate(-5px, -5px);
         }
 
-        .copyright {
-            font-size: 9px; color: #aaa; letter-spacing: 3px; font-family: monospace;
+        .footer-line {
+            margin-top: 100px; padding: 40px; text-align: center;
+            border-top: 1px solid var(--silver);
+            background: #eee;
         }
 
-        @media (max-width: 768px) {
-            .content { padding: 10vw; }
-            .img-box img { width: 100%; }
+        /* 装饰小方块 */
+        .pixel-box {
+            width: 10px; height: 10px; background: var(--klein-blue); display: inline-block;
         }
     </style>
 </head>
 <body>
 
+<div class="bg-line" style="left: 20%; animation-delay: 0s;"></div>
+<div class="bg-line" style="left: 50%; animation-delay: 2s;"></div>
+<div class="bg-line" style="left: 80%; animation-delay: 4s;"></div>
+
 <header>
     <div class="logo">1999nosubete</div>
-    <div style="font-size: 10px; font-family: monospace; color: #888;">ID: GUEST_ACCESS</div>
+    <div class="ui-tag">LIVE ARCHIVE</div>
 </header>
 
 <div class="hero">
-    <div class="hero-title">NOSUBETE</div>
-    <div class="decoration" style="top: 25%; left: 15%;">[DATA_LOG: 1999]</div>
-    <div class="decoration" style="bottom: 15%; right: 15%;">ACCESS_CODE: ****</div>
+    <div class="window-deco" style="top: 20%; left: 10%;">STATUS: LOADING... 88%</div>
+    <div class="window-deco" style="bottom: 25%; right: 10%;">MODE: ANONYMOUS</div>
+    <div class="hero-title">1999_ALL</div>
+    <p style="font-family: monospace; font-size: 12px; color: var(--klein-blue); margin-top: 20px;">[ RECORDING THE ATMOSPHERE ]</p>
 </div>
 
 <div class="content">
-    <div class="img-box">
-        <img src="001.jpg" alt="visual_archive">
-        <div class="caption">
-            <div class="caption-icon"></div>
-            #001 / SHADOW_CAPTURE / 2026_LOG
+    <div class="img-wrap" style="width: 70%;">
+        <img src="001.jpg" alt="visual">
+        <div style="margin-top: 10px; font-size: 10px; font-family: monospace; opacity: 0.5;">
+            FILE_01 // 2026.IMG
         </div>
     </div>
 
-    <div class="img-box">
-        <img src="002.jpg" alt="visual_archive" style="width: 65%; margin-left: auto;">
-        <div class="caption" style="justify-content: flex-end;">
-            #002 / CORE_ATMOSPHERE / V_02
-            <div class="caption-icon"></div>
+    <div class="img-wrap" style="width: 50%; align-self: flex-end;">
+        <img src="002.jpg" alt="visual">
+        <div style="margin-top: 10px; font-size: 10px; font-family: monospace; opacity: 0.5; text-align: right;">
+            FILE_02 // SYNCING...
         </div>
     </div>
 </div>
 
-<footer>
-    <div class="copyright">© 1999-2026 ARCHIVE SYSTEM. ALL RIGHTS RESERVED.</div>
-</footer>
+<div class="footer-line">
+    <div class="pixel-box"></div>
+    <p style="font-size: 9px; letter-spacing: 4px; color: #888; font-family: monospace;">
+        NO_INFORMATION_AVAILABLE // END_OF_PAGE
+    </p>
+</div>
 
 </body>
 </html>
