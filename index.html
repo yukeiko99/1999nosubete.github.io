@@ -3,160 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1999nosubete / PROJECT_LOG</title>
+    <title>1999nosubete / PHANTOM_LOG</title>
     <style>
         :root {
-            /* 配色：清冷灰、银、黑、紧急红 */
-            --bg: #ececec;
-            --main-text: #111;
-            --silver: #aaa;
-            --accent-red: #ff3333;
-            /* 字体：精致的衬线体与清冷的等宽体 */
-            --serif: "Sorts Mill Goudy", "Hiragino Mincho ProN", "Source Han Serif SC", serif;
-            --mono: "Courier New", monospace;
+            --bg: #dadada;
+            --accent-red: #ff0000;
+            --window-bg: rgba(255, 255, 255, 0.4);
+            --serif: "Sorts Mill Goudy", serif;
         }
 
         body, html {
-            margin: 0; padding: 0;
+            margin: 0; padding: 0; height: 100vh;
             background-color: var(--bg);
-            color: var(--main-text);
+            /* 这种网格背景更细碎，有 KiiiKiii 的电子垃圾感 */
+            background-image: radial-gradient(#aaa 1px, transparent 1px);
+            background-size: 15px 15px;
+            overflow: hidden;
             font-family: var(--serif);
-            overflow-x: hidden;
-            letter-spacing: -0.01em;
         }
 
-        /* 顶部导航：清冷匿名感 */
-        header {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 30px; display: flex; justify-content: space-between; align-items: flex-end;
-            mix-blend-mode: difference; /* 文字颜色随背景改变，高级感来源 */
+        /* 顶部装饰：EVA 风格坐标 */
+        .header-ui {
+            position: fixed; top: 0; width: 100%; height: 50px;
+            border-bottom: 1px solid #000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; box-sizing: border-box; font-size: 10px; font-family: monospace;
+            z-index: 100; mix-blend-mode: exclusion; color: #fff;
         }
 
-        .logo { font-size: 1.1rem; font-weight: 300; letter-spacing: -1px; text-transform: lowercase; }
-
-        /* 全屏首屏：EVA机能警报 + kiiikiii清冷大字 */
-        .hero {
-            height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            position: relative;
+        /* 核心：NewJeans 风格的散落卡片 */
+        .container {
+            position: relative; width: 100vw; height: 100vh;
         }
 
-        .hero-title {
-            font-size: 15vw; font-weight: 300; letter-spacing: -0.05em;
-            color: var(--main-text);
-            transform: rotate(-3deg);
-            position: relative; z-index: 1;
+        /* 弹窗/卡片基础样式：极简黑线 + 磨砂感 */
+        .glass-card {
+            position: absolute;
+            background: var(--window-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid #000;
+            padding: 10px;
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.05);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: move;
         }
 
-        /* 庵野秀明风格的大号文字背景 */
-        .hero-bg-text {
-            position: absolute; font-size: 20px; font-weight: 300; color: rgba(0,0,0,0.03); 
-            line-height: 1.2; text-transform: uppercase; letter-spacing: 2px;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            white-space: nowrap; pointer-events: none;
-        }
-
-        /* 核心布局：错落、重叠、艺术档案感 */
-        .content {
-            padding: 10vw; position: relative; max-width: 1400px; margin: 0 auto;
-        }
-
-        .img-box {
-            position: relative; margin-bottom: 20vh;
-            border-bottom: 1px solid var(--silver); padding-bottom: 20px;
-        }
-
-        /* 图片：胶片感、黑白高对比、心理惊悚滤镜 */
-        .img-box img {
-            width: 75%; height: auto; display: block;
-            border: 1px solid var(--main-text);
-            filter: contrast(1.1) brightness(0.9) grayscale(10%);
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; z-index: 2;
-        }
-
-        /* 今敏风格的心理分裂/重影 */
-        .img-box:hover img {
+        .glass-card:hover {
             transform: scale(1.02);
-            filter: drop-shadow(4px 0 0 rgba(255,51,51,0.5)) drop-shadow(-4px 0 0 rgba(0,255,255,0.2));
+            z-index: 50 !important;
         }
 
-        /* 庵野秀明风格的机能红标签 */
-        .机能-tag {
-            position: absolute; top: -15px; right: 0;
-            font-size: 11px; font-family: var(--mono); color: #fff; background-color: var(--accent-red);
-            padding: 3px 8px; font-weight: bold;
+        /* 今敏风格：图片的重影色差效果 */
+        .img-wrap {
+            position: relative; overflow: hidden;
+            border: 1px solid #000;
         }
 
-        .caption {
-            font-size: 10px; font-family: var(--mono); color: var(--silver);
-            margin-top: 15px; letter-spacing: 2px;
-            display: flex; gap: 10px; align-items: center;
-        }
-        
-        .caption-icon { width: 10px; height: 10px; background-color: var(--accent-red); }
-
-        /* 大号文字报错块：EVA风格机能感 */
-        .error-block {
-            padding: 5vh; border: 2px solid var(--accent-red); color: var(--accent-red);
-            font-size: 30px; font-weight: 900; letter-spacing: 1px;
-            text-align: center; margin-bottom: 20vh;
+        .img-wrap img {
+            width: 100%; display: block;
+            filter: contrast(1.1) grayscale(20%);
         }
 
-        footer {
-            margin-top: 100px; padding: 50px; text-align: center; font-size: 10px; color: var(--dim);
-            border-top: 1px solid rgba(0,0,0,0.05);
+        /* 悬停时触发 Perfect Blue 式的自我崩坏感 */
+        .glass-card:hover img {
+            filter: sepia(30%) contrast(1.2);
+            box-shadow: 5px 0 0 var(--accent-red), -5px 0 0 #00ffff;
+            opacity: 0.8;
         }
 
-        .copyright {
-            font-size: 9px; color: #444; letter-spacing: 3px; font-family: monospace;
+        /* EVA 装饰：机能文字标签 */
+        .tag-red {
+            background: var(--accent-red); color: white;
+            font-size: 9px; padding: 2px 5px; font-weight: bold;
+            font-family: monospace; display: inline-block;
+            margin-bottom: 5px;
         }
 
-        @media (max-width: 768px) {
-            .content { padding: 5vw; }
-            .img-box img { width: 100%; }
+        /* 随机分布的位置 */
+        #card1 { top: 15%; left: 10%; width: 280px; transform: rotate(-2deg); }
+        #card2 { top: 10%; right: 15%; width: 220px; transform: rotate(3deg); }
+        #card3 { bottom: 15%; left: 30%; width: 320px; transform: rotate(-1deg); }
+
+        /* 闪烁的 [REC] 灯 */
+        .rec-dot {
+            width: 8px; height: 8px; background: var(--accent-red);
+            border-radius: 50%; display: inline-block;
+            animation: blink 1s infinite;
         }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">1999nosubete</div>
-    <div style="font-size: 11px; font-family: var(--mono);">SYSTEM_LOG // ACCESS_CODE: ANONYMOUS</div>
-</header>
-
-<div class="hero">
-    <div class="hero-bg-text">ALL ARCHIVE DATA IS NO LONGER VALID / FILE_01 / END_OF_PROJECT</div>
-    <div class="hero-title">1999_A_L_L_A_R_C_H_I_V_E</div>
-    <p style="font-family: var(--serif); font-size: 12px; color: var(--main-text); margin-top: 20px;">[ RECORDING THE ATMOSPHERE ]</p>
+<div class="header-ui">
+    <div>1999_NOSUBETE_ARCHIVE_SYSTEM</div>
+    <div><span class="rec-dot"></span> LIVE_REC: 2026.04.09</div>
+    <div>COORDINATE: 35.6895° N, 139.6917° E</div>
 </div>
 
-<div class="content">
-    <div class="img-box">
-        <div class="机能-tag">[PROJECT: LOG]</div>
-        <img src="001.jpg" alt="visual_archive">
-        <div class="caption">
-            <div class="caption-icon"></div>
-            #001 // Core Atmosphere / V_0.1 // 2026_LOG
+<div class="container" id="drag-area">
+    
+    <div class="glass-card" id="card1">
+        <span class="tag-red">CASE_FILE: 001</span>
+        <div class="img-wrap">
+            <img src="001.jpg" alt="visual" onerror="this.src='https://via.placeholder.com/300x400/dddddd/000000?text=IMAGE_NOT_FOUND'">
+        </div>
+        <p style="font-size: 11px; margin-top: 10px; letter-spacing: 1px;">
+            // 记录下所有无法被定义的瞬间。<br>
+            // DATA_STREAM: ERROR_REPORTED
+        </p>
+    </div>
+
+    <div class="glass-card" id="card2">
+        <div style="font-size: 20px; font-weight: 900; border-bottom: 1px solid #000; margin-bottom: 10px;">
+            WHO ARE YOU?
+        </div>
+        <p style="font-size: 10px; font-family: monospace; color: var(--accent-red);">
+            [WARNING]<br>
+            IDENTITY_SYNCHRONIZATION: 12%
+        </p>
+        <div class="img-wrap">
+            <img src="002.jpg" alt="visual" style="height: 150px; object-fit: cover;">
         </div>
     </div>
 
-    <div class="error-block">
-        紧急事态 // WARNING: CORE DATA IS MISSING / *
-    </div>
-
-    <div class="img-box" style="width: 50%; margin-left: auto;">
-        <div class="机能-tag">[SYSTEM: SHUTDOWN]</div>
-        <img src="002.jpg" alt="visual_archive">
-        <div class="caption">
-            #002 // Shadow_Capture // FINAL_LOG
-            <div class="caption-icon"></div>
+    <div class="glass-card" id="card3">
+        <span class="tag-red" style="background: #000;">SYSTEM: ACTIVE</span>
+        <div style="display: flex; gap: 10px;">
+            <div style="flex: 1; font-size: 12px; line-height: 1.5;">
+                <span style="font-weight: bold; font-size: 18px;">1999</span><br>
+                所有破碎的，<br>
+                终将成为永恒。<br>
+                <span style="color: #888;">#Y2K #GLITCH #ARCHIVE</span>
+            </div>
+            <div style="flex: 1;" class="img-wrap">
+                <img src="001.jpg" alt="visual">
+            </div>
         </div>
     </div>
+
 </div>
 
-<footer>
-    <div class="copyright">© 1999-2026 ARCHIVE SYSTEM. ALL RIGHTS RESERVED.</div>
-</footer>
+<script>
+    const cards = document.querySelectorAll('.glass-card');
+    let zIndex = 10;
+
+    cards.forEach(card => {
+        let isDragging = false;
+        let startX, startY, initialX, initialY;
+
+        card.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            card.style.zIndex = ++zIndex;
+            startX = e.clientX;
+            startY = e.clientY;
+            initialX = card.offsetLeft;
+            initialY = card.offsetTop;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            card.style.left = (initialX + dx) + 'px';
+            card.style.top = (initialY + dy) + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    });
+</script>
 
 </body>
 </html>
