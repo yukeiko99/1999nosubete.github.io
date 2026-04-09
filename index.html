@@ -3,86 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1999nosubete / ARCHIVE</title>
+    <title>1999nosubete / DIGITAL_ARCHIVE</title>
     <style>
         :root {
-            --bg: #000;
-            --silver: #e0e0e0;
-            --dim: #444;
+            /* 千禧风核心配色：浅银灰、未来蓝、极暗灰 */
+            --bg: #f2f2f2;
+            --klein-blue: #0047AB; /* 克莱因蓝 */
+            --silver-metal: #ccc;
+            --main-text: #333;
+            --accent-green: #00ff00; /* 信号绿 */
         }
 
         body, html {
             margin: 0; padding: 0;
             background-color: var(--bg);
-            color: var(--silver);
-            font-family: "Helvetica Neue", Helvetica, sans-serif;
+            color: var(--main-text);
+            font-family: 'Helvetica Neue', Helvetica, 'Courier New', monospace; /* 衬线体混合 */
             overflow-x: hidden;
+            letter-spacing: -0.01em;
         }
 
-        /* 核心：动态噪点背景，模拟 kiiikiii 的胶片颗粒感 */
+        /* 核心：千禧扫描线纹理 */
         body::before {
             content: "";
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url(https://media.giphy.com/media/oEI9uWUic9Z5e/giphy.gif); /* 极轻微的噪点动画 */
-            opacity: 0.03; pointer-events: none; z-index: 999;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,0.03) 0px,
+                rgba(0,0,0,0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none; z-index: 1000;
         }
 
-        /* 顶部导航：更有设计感的布局 */
+        /* 顶部导航：磨砂玻璃机能感 */
         header {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 30px; display: flex; justify-content: space-between;
-            mix-blend-mode: difference; /* 文字颜色随背景改变，非常高级 */
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 1000px; z-index: 100;
+            padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.3); /* 半透明底 */
+            backdrop-filter: blur(10px); /* 磨砂玻璃效果 */
+            border: 1px solid var(--silver-metal);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .logo { font-size: 1.2rem; font-weight: 900; letter-spacing: -1px; }
+        .logo { font-size: 1.2rem; font-weight: 900; color: var(--klein-blue); letter-spacing: -1px; text-transform: lowercase; }
 
-        /* 全屏首屏：那种冲击力 */
+        /* 全屏首屏：千禧机能感 */
         .hero {
             height: 100vh; display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle, #111 0%, #000 100%);
+            background: radial-gradient(circle, #fff 0%, #eee 100%);
+            position: relative;
         }
 
         .hero-title {
-            font-size: 15vw; font-weight: 900; letter-spacing: -0.05em;
-            color: transparent; -webkit-text-stroke: 1px #333; /* 镂空字体 */
+            font-size: 12vw; font-weight: 900; letter-spacing: -0.08em;
+            color: transparent; -webkit-text-stroke: 1.5px var(--klein-blue); /* 镂空字体 */
+            transform: rotate(-3deg); /* 故意的不整齐感 */
         }
 
-        /* 核心布局：碎片化错落排版 */
+        /* 千禧风背景装饰物 */
+        .decoration {
+            position: absolute; font-family: monospace; font-size: 10px; color: rgba(0,0,0,0.05); pointer-events: none;
+        }
+
+        /* 核心布局：错落、重叠、机能 */
         .content {
-            padding: 10vw; position: relative;
+            padding: 15vw; position: relative; max-width: 1400px; margin: 0 auto;
         }
 
         .img-box {
-            position: relative; margin-bottom: 20vh;
-        }
-
-        /* 模拟 kiiikiii 风格的重叠文字 */
-        .img-box::after {
-            content: "1999_ALL_DATA";
-            position: absolute; bottom: -20px; right: -20px;
-            font-size: 4vw; font-weight: 900; color: rgba(255,255,255,0.05);
-            z-index: -1;
+            position: relative; margin-bottom: 25vh;
+            border-left: 2px solid var(--klein-blue); padding-left: 20px;
         }
 
         .img-box img {
-            width: 70%; height: auto; display: block;
-            filter: saturate(0) contrast(1.2); /* 强烈的黑白高对比 */
+            width: 80%; height: auto; display: block;
+            border: 1px solid var(--silver-metal);
+            filter: contrast(1.1) brightness(1.1); /* 强烈的数字质感 */
             transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; z-index: 1;
         }
 
-        .img-box:nth-child(even) img { margin-left: auto; width: 50%; }
-
+        /* 模拟 kiiikiii 的蓝色干扰/重影滤镜 */
         .img-box:hover img {
-            filter: saturate(1); transform: scale(1.02);
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.02);
+            box-shadow: 10px 10px 0 var(--klein-blue); /* 蓝色阴影重影 */
         }
 
         .caption {
-            font-size: 10px; font-family: monospace; color: var(--dim);
-            margin-top: 15px; letter-spacing: 2px;
+            font-size: 10px; font-family: monospace; color: var(--klein-blue);
+            margin-top: 20px; letter-spacing: 2px;
+            display: flex; gap: 10px; align-items: center;
         }
+        
+        .caption-icon { width: 10px; height: 10px; background-color: var(--accent-green); }
 
         footer {
-            padding: 50px; text-align: center; font-size: 10px; color: var(--dim);
+            margin-top: 100px; padding: 50px; text-align: center; font-size: 10px; color: var(--dim);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .copyright {
+            font-size: 10px; color: #444; letter-spacing: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .content { padding: 10vw; }
+            .img-box img { width: 100%; }
         }
     </style>
 </head>
@@ -90,27 +120,35 @@
 
 <header>
     <div class="logo">1999nosubete</div>
-    <div style="font-size: 10px;">SCROLL / 探索</div>
+    <div style="font-size: 10px; font-family: monospace;">STATUS: ARCHIVE_V2.0</div>
 </header>
 
 <div class="hero">
     <div class="hero-title">NOSUBETE</div>
+    <div class="decoration" style="top: 20%; left: 10%; transform: rotate(10deg);">[DIGITAL_MIND_SET]</div>
+    <div class="decoration" style="bottom: 10%; right: 15%; color: var(--klein-blue); font-size: 12px;">/* 1999-2026 */</div>
 </div>
 
 <div class="content">
     <div class="img-box">
-        <img src="001.jpg" alt="archive">
-        <div class="caption">#INDEX_001 / LIGHT_AND_SHADOW</div>
+        <img src="001.jpg" alt="1999 archive">
+        <div class="caption">
+            <div class="caption-icon"></div>
+            #001 / Cyber-core Memory / 钰莹的随想
+        </div>
     </div>
 
     <div class="img-box">
-        <img src="002.jpg" alt="archive">
-        <div class="caption">#INDEX_002 / NOISE_ATMOSPHERE</div>
+        <img src="002.jpg" alt="1999 archive" style="width: 60%; margin-left: auto;">
+        <div class="caption">
+            <div class="caption-icon"></div>
+            #002 / Atmosphere.0716 / 清冷机能
+        </div>
     </div>
 </div>
 
 <footer>
-    © 1999 ALL RIGHTS RESERVED.
+    <div class="copyright">© 1999 ALL RIGHTS RESERVED. PRIVATE PROJECT.</div>
 </footer>
 
 </body>
