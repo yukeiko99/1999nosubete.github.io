@@ -3,159 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1999nosubete / PROJECT_LOG</title>
+    <title>1999_OS // 404_NOT_FOUND</title>
     <style>
-        :root {
-            --bg: #ececec; /* 带有通透感的清冷灰 */
-            --main-text: #111;
-            --accent-red: #ff3333; /* 紧急警报红，EVA风格核心 */
-            --silver: #aaa;
-            /* 衬线体是关键：增加一种复古、不安的质感 */
-            --serif: "Sorts Mill Goudy", "Hiragino Mincho ProN", "Source Han Serif SC", serif;
-            --mono: "Courier New", monospace;
+        /* 复古 Windows 98 桌面底色 + EVA 压迫感网格 */
+        body {
+            margin: 0; padding: 0; height: 100vh;
+            background-color: #008080; /* 千禧年经典深青色 */
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.2) 1px, transparent 1px);
+            background-size: 40px 40px; 
+            font-family: 'Trebuchet MS', 'Lucida Sans', Arial, sans-serif;
+            overflow: hidden; color: #000;
         }
 
-        body, html {
-            margin: 0; padding: 0;
-            background-color: var(--bg);
-            color: var(--main-text);
-            font-family: var(--serif);
-            overflow-x: hidden;
-            letter-spacing: -0.01em;
+        /* 左侧复古桌面图标 */
+        .desktop-icon {
+            width: 80px; text-align: center; margin: 20px;
+            color: white; font-size: 12px; cursor: pointer;
+            text-shadow: 1px 1px 0 #000; font-family: monospace;
         }
 
-        /* 顶部导航：机能感的文字排版 */
-        header {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            padding: 30px; display: flex; justify-content: space-between; align-items: flex-end;
-            mix-blend-mode: difference; /* 文字随背景颜色改变，高级感来源 */
+        /* 核心：早期互联网 Web 1.0 复古弹窗 UI */
+        .window {
+            position: absolute; background: #c0c0c0;
+            border: 2px solid;
+            border-top-color: #fff; border-left-color: #fff;
+            border-right-color: #000; border-bottom-color: #000;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
 
-        .logo { font-size: 1.1rem; font-weight: 300; letter-spacing: -1px; text-transform: lowercase; }
-
-        /* 核心内容区 */
-        .hero {
-            height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            position: relative;
+        .title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
+            color: white; padding: 3px 5px; font-size: 12px; font-weight: bold;
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: monospace; letter-spacing: 1px;
         }
 
-        .hero-title {
-            font-size: 15vw; font-weight: 300; letter-spacing: -0.05em;
-            color: var(--main-text);
-            transform: rotate(-3deg);
-            position: relative; z-index: 1;
+        .title-bar-buttons button {
+            background: #c0c0c0; border: 1px solid #fff; 
+            border-right-color: #000; border-bottom-color: #000;
+            font-weight: bold; font-size: 10px; cursor: pointer;
         }
 
-        /* 庵野秀明风格的大号文字背景 */
-        .hero-bg-text {
-            position: absolute; font-size: 20px; font-weight: 300; color: rgba(0,0,0,0.03); 
-            line-height: 1.2; text-transform: uppercase; letter-spacing: 2px;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            white-space: nowrap; pointer-events: none;
+        /* 弹窗 1：KiiiKiii 千禧复古个人主页风 */
+        #window-profile { top: 10%; left: 8%; width: 350px; z-index: 2; }
+        .profile-content { padding: 15px; text-align: center; }
+        .profile-content img {
+            width: 100%; border: 2px inset #fff;
+            filter: grayscale(30%) sepia(20%) contrast(1.2); /* 老数码相机质感 */
+        }
+        .marquee-box {
+            border: 1px inset #fff; padding: 4px; margin-top: 10px;
+            background: white; font-family: 'Courier New', monospace; font-size: 12px; color: blue;
         }
 
-        /* 核心布局：错落有致的艺术档案感 */
-        .content {
-            padding: 10vw; position: relative; max-width: 1400px; margin: 0 auto;
+        /* 弹窗 2：今敏 Perfect Blue 心理重影风 */
+        #window-mima { top: 25%; right: 10%; width: 260px; z-index: 5; }
+        #window-mima .title-bar { background: #000; }
+        .mima-content { padding: 30px 20px; text-align: center; font-family: serif; }
+        .glitch-text {
+            color: #000; font-size: 20px; font-weight: 900;
+            text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; /* 赛博色散重影 */
+            animation: glitch 1.5s infinite alternate;
+            margin: 15px 0;
         }
 
-        .img-box {
-            position: relative; margin-bottom: 20vh;
-            border-bottom: 1px solid var(--silver); padding-bottom: 20px;
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 1px); text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+            40% { transform: translate(2px, -1px); }
+            60% { transform: translate(-1px, 2px); text-shadow: 3px 0 #ff00ff, -3px 0 #00ffff; }
+            80% { transform: translate(1px, -2px); }
+            100% { transform: translate(0); text-shadow: 1px 0 #ff00ff, -1px 0 #00ffff; }
         }
 
-        .img-box img {
-            width: 75%; height: auto; display: block;
-            border: 1px solid var(--main-text);
-            filter: contrast(1.1) brightness(0.9); /* 带有胶片感的黑白高对比 */
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; z-index: 2;
+        /* 弹窗 3：庵野秀明 EVA 红色机能警报风 */
+        #window-eva { top: 45%; left: 35%; width: 400px; z-index: 10; border-color: #ff3333; }
+        #window-eva .title-bar { background: #ff3333; }
+        .eva-content {
+            background: #000; color: #ff3333; padding: 25px;
+            font-family: 'Courier New', monospace; text-align: center;
         }
+        .eva-text { font-size: 28px; font-weight: 900; margin: 0; letter-spacing: 4px; }
 
-        /* 今敏风格的重影/分裂感 */
-        .img-box:hover img {
-            transform: scale(1.02);
-            /* 色彩分离滤镜，模仿心理分裂 */
-            filter: drop-shadow(4px 0 0 rgba(255,51,51,0.5)) drop-shadow(-4px 0 0 rgba(0,255,255,0.2));
-        }
-
-        /* 庵野秀明风格的红黑机能标签 */
-        .机能-tag {
-            position: absolute; top: -15px; right: 0;
-            font-size: 11px; font-family: var(--mono); color: #fff; background-color: var(--accent-red);
-            padding: 3px 8px; font-weight: bold;
-        }
-
-        .caption {
-            font-size: 10px; font-family: var(--mono); color: var(--silver);
-            margin-top: 15px; letter-spacing: 2px;
-            display: flex; gap: 10px; align-items: center;
-        }
-        
-        .caption-icon { width: 10px; height: 10px; background-color: var(--accent-red); }
-
-        /* 庵野秀明风格的大字报错块 */
-        .error-block {
-            padding: 5vh; border: 2px solid var(--accent-red); color: var(--accent-red);
-            font-size: 30px; font-weight: 900; letter-spacing: 1px;
-            text-align: center; margin-bottom: 20vh;
-        }
-
-        footer {
-            margin-top: 100px; padding: 50px; text-align: center; font-size: 10px; color: var(--dim);
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .copyright {
-            font-size: 9px; color: #444; letter-spacing: 3px; font-family: monospace;
-        }
-
-        @media (max-width: 768px) {
-            .content { padding: 5vw; }
-            .img-box img { width: 100%; }
-        }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">1999nosubete</div>
-    <div style="font-size: 11px; font-family: var(--mono);">SYSTEM_LOG // ACCESS_CODE: ANONYMOUS</div>
-</header>
-
-<div class="hero">
-    <div class="hero-bg-text">ALL ARCHIVE DATA IS NO LONGER VALID / FILE_01 / END_OF_PROJECT</div>
-    <div class="hero-title">1999_A_L_L_A_R_C_H_I_V_E</div>
-    <p style="font-family: var(--serif); font-size: 12px; color: var(--main-text); margin-top: 20px;">[ RECORDING THE ATMOSPHERE ]</p>
-</div>
-
-<div class="content">
-    <div class="img-box">
-        <div class="机能-tag">[PROJECT: LOG]</div>
-        <img src="001.jpg" alt="visual_archive">
-        <div class="caption">
-            <div class="caption-icon"></div>
-            #001 // Core Atmosphere / V_0.1 // 2026_LOG
+    <div style="display: flex; flex-direction: column; position: absolute; left: 0; top: 0;">
+        <div class="desktop-icon">
+            <div style="font-size: 35px;">📁</div><div>ARCHIVE_99</div>
         </div>
-    </div>
-
-    <div class="error-block">
-        紧急事态 // WARNING: CORE DATA IS MISSING / *
-    </div>
-
-    <div class="img-box" style="width: 50%; margin-left: auto;">
-        <div class="机能-tag">[SYSTEM: SHUTDOWN]</div>
-        <img src="002.jpg" alt="visual_archive">
-        <div class="caption">
-            #002 // Shadow_Capture // FINAL_LOG
-            <div class="caption-icon"></div>
+        <div class="desktop-icon">
+            <div style="font-size: 35px;">💿</div><div>SYSTEM.iso</div>
         </div>
-    </div>
-</div>
-
-<footer>
-    <div class="copyright">© 1999-2026 ARCHIVE SYSTEM. ALL RIGHTS RESERVED.</div>
-</footer>
-
-</body>
-</html>
+        <div class="desktop-icon">
+            <div style="font-size: 35px;">🗑️</div><div>RECYCLE.BIN</div>
+        </div>
